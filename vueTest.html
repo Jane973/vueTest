@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<meta charset="utf-8">
+	<style type="text/css">
+	.input_box {
+		margin-bottom: 10px;
+	}
+	#app .input_box:nth-child(2),#app .input_box:nth-child(3) {
+		margin-left:14px;
+	}
+	button {
+		margin-left: 50px;
+		margin-bottom: 20px;
+	}
+	table {
+		border-collapse: collapse;
+		width: 400px;
+		text-align: center;
+	}
+	table th {
+		background-color:#a1c4fd; 
+	}
+	table a {
+		text-decoration: none;
+		height:20px;
+		line-height: 20px;  
+		color: #a1c4fd;
+	}
+	</style>
+</head>
+<body>
+	<div id="app">
+		<div class="input_box">
+			<label>Name:</label><input type="text" v-model="name">
+		</div>
+		<div class="input_box">
+			<label>Age:</label><input type="text" v-model="age">
+		</div>
+		<div class="input_box">
+		    <label>Sex:</label>
+		    <select v-model="sex">
+			   <option value="male">male</option>
+			   <option value="femal">female</option>
+		    </select>
+		</div>
+		<button v-on:click="createPeople">Create</button>
+		<table border="1">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Age</th>
+					<th>Sex</th>
+					<th>Delete</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr v-for="(item,index) in items" >
+					<td>{{item.names}}</td>
+					<td>{{item.ages}}</td>
+					<td>{{item.sexes}}</td>
+					<td><a href="#" v-on:click="deletePeople(index)">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.5.16/dist/vue.js"></script>
+<script>
+new Vue({
+	el:'#app',
+	data:{
+		name:'',
+		age:'',
+		sex:'male',
+		items:[]
+	},
+	methods:{
+		createPeople:function(){
+			this.items.push({names:this.name,ages:this.age,sexes:this.sex});
+			this.name='';
+			this.age='';
+			this.sex='male';
+		},
+		deletePeople:function(index){
+			this.items.splice(index,1);
+		}
+	}
+})	
+</script>
+</body>
+</html>
